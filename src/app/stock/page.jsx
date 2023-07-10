@@ -16,8 +16,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-
+import StockData from '@/Component/StockData';
 
 
 const style = {
@@ -224,7 +223,9 @@ const [sizes, setSizes] = useState([{ 'size': '', 'quantity': '' }]);
         </Grid>
       </Grid>
     </Box>
-
+    <div>
+      <StockData/>
+    </div>
   </div>
 
   
