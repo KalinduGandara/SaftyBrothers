@@ -19,6 +19,8 @@ import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import Link from 'next/link';
+
 
 function createData(Itemcode, itemname, qty) {
   return {
@@ -31,8 +33,8 @@ function createData(Itemcode, itemname, qty) {
 }
 
 const rows = [
-  createData('GS109','Glows',25),
-  createData('Donut', 452, 25.0,),
+  createData(<Link href="/itemModal" style={{textDecoration:'none'}}>GS109</Link>,'Glows',25),
+  createData(<Link href="/ItemModal" style={{textDecoration:'none'}}>LP052</Link>, 'Safety Shoe ',452, 25.0,),
   createData('Eclair', 262, 16.0),
   createData('Frozen yoghurt', 159, 6.0),
   createData('Gingerbread', 356, 16),
@@ -118,6 +120,8 @@ function EnhancedTableHead(props) {
   };
 
   return (
+     
+
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
@@ -129,20 +133,20 @@ function EnhancedTableHead(props) {
             inputProps={{
               'aria-label': 'select all desserts',
             }}
-          />
+            />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
-            key={headCell.id }
-            align={headCell.numeric ? 'left' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
+          key={headCell.id }
+          align={headCell.numeric ? 'left' : 'left'}
+          padding={headCell.disablePadding ? 'none' : 'normal'}
+          sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
-            >
+              >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
@@ -154,6 +158,7 @@ function EnhancedTableHead(props) {
         ))}
       </TableRow>
     </TableHead>
+
   );
 }
 
@@ -195,7 +200,8 @@ function EnhancedTableToolbar(props) {
           variant="h6"
           id="tableTitle"
           component="div"
-        >
+          align='center'
+                  >
           STOCKS
         </Typography>
       )}
@@ -293,6 +299,8 @@ export default function StockData() {
   );
 
   return (
+   
+
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
@@ -309,7 +317,7 @@ export default function StockData() {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
-            />
+              />
             <TableBody>
               {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(row.Itemcode);
@@ -318,7 +326,7 @@ export default function StockData() {
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.Itemcode)}
+                    //  onClick={(event) => handleClick(event, row.Itemcode)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
@@ -329,7 +337,7 @@ export default function StockData() {
                     <TableCell padding="checkbox">
                       <Checkbox
                         color="primary"
-                        checked={isItemSelected}
+                        // checked={isItemSelected}
                         inputProps={{
                           'aria-labelledby': labelId,
                         }}
@@ -351,9 +359,9 @@ export default function StockData() {
               })}
               {emptyRows > 0 && (
                 <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
+                style={{
+                  height: (dense ? 33 : 53) * emptyRows,
+                }}
                 >
                   <TableCell colSpan={6} />
                 </TableRow>
@@ -369,9 +377,10 @@ export default function StockData() {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+          />
       </Paper>
       
     </Box>
+         
   );
 }
