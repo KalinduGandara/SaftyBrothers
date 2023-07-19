@@ -158,12 +158,12 @@ function invoice() {
         <TextField id="outlined-basic" label="Customer Name" variant="outlined" />
         </Grid>
         <Grid item xs={6} ></Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker />
     </LocalizationProvider>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
         <FormControl sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-helper-label">Payment Method</InputLabel>
         <Select
@@ -182,6 +182,11 @@ function invoice() {
         </Select>
         <FormHelperText>select payment method</FormHelperText>
       </FormControl>
+        </Grid>
+        <Grid item xs={2}>
+        <Button variant="contained" size="small">
+          Save Details
+        </Button>
         </Grid>
         <Grid item xs={12}>
         <TableContainer component={Paper}>
