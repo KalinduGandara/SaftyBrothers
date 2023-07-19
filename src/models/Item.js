@@ -21,7 +21,7 @@ const itemSchema = new mongoose.Schema({
   description: {
     type: mongoose.Schema.Types.String,
   },
-  Sizes: [
+  sizes: [
     {
       size: {
         type: mongoose.Schema.Types.String,
@@ -36,4 +36,5 @@ const itemSchema = new mongoose.Schema({
 });
 
 //If the Item collection does not exist create a new one.
+// mongoose.deleteModel("Item");
 export default mongoose.models.Item || mongoose.model("Item", itemSchema);
