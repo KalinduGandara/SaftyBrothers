@@ -80,9 +80,10 @@ const [sizes, setSizes] = useState([{ 'size': '', 'quantity': '' }]);
     <div className={styles.row}>
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
+      <Grid item xs={12} textAlign={'center'} fontWeight={'bold'} fontSize={'40px'}><Box bgcolor={'#75C2F6'}>STOCKS</Box></Grid>
         <Grid xs>
         <Autocomplete
-        id="free-solo-demo"
+        id="Enter Item Code"
         freeSolo
         options={ITemlist.map((option) => option.title)}
         renderInput={(params) => <TextField {...params} label="Enter Item Code" />}
@@ -97,8 +98,11 @@ const [sizes, setSizes] = useState([{ 'size': '', 'quantity': '' }]);
       />
         </Grid>
         <Grid xs>
+        <Button variant="outlined">Search</Button>
+        </Grid>
+        <Grid xs>
    <React.Fragment>
-            <Button onClick={handleOpen} variant="contained" href="#contained-buttons"> ADD</Button>
+            <Button onClick={handleOpen} variant="contained" href="#contained-buttons"> ADD ITEM</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -239,6 +243,6 @@ const [sizes, setSizes] = useState([{ 'size': '', 'quantity': '' }]);
   }
   const ITemlist = [
     { title: 'gs109', name: 'Glows' },
-    { title: 'gs110', name: 'Helmet' }
+    { title: 'gs110', name: 'Helmet' },
     
   ];
