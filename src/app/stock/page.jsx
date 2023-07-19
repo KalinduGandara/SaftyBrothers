@@ -80,6 +80,7 @@ const [sizes, setSizes] = useState([{ 'size': '', 'quantity': '' }]);
     <div className={styles.row}>
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
+      <Grid item xs={12} textAlign={'center'} fontWeight={'bold'} fontSize={'40px'}><Box bgcolor={'#75C2F6'}>STOCKS</Box></Grid>
         <Grid xs>
         <Autocomplete
         id="Enter Item Code"

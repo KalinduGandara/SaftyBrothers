@@ -14,11 +14,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -61,10 +56,6 @@ function quatation() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const [save, setSave] = React.useState(false);
-  const saveOpen = () => setSave(true);
-  const saveClose = () => setSave(false);
 
   return (
     
@@ -235,39 +226,10 @@ function quatation() {
           Cancel
         </Button></Grid>
         <Grid item xs={2}> 
-        <Button variant="contained" endIcon={<SendIcon />}onClick={saveOpen}>
+        <Button variant="contained" endIcon={<SendIcon />}>
         Save
       </Button> 
-      <Modal
-        open={save}
-        onClose={saveClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-            <Typography id="modal-modal-title" variant="h6" component="h2"  textAlign={'center'}>
-            Are You Sure
-          </Typography>
-            </Grid>
-                          
-          <Grid item xs={12}> </Grid>
-            <Grid item xs={12}> </Grid>
-            <Grid item xs={3}> </Grid>
-            <Grid item xs={3} alignItems={'center'}>
-            <Button variant="contained" color='error' size="medium">
-          No
-        </Button>
-            </Grid>
-          <Grid item xs={6} alignItems={'center'}>
-          <Button variant="contained" endIcon={<SendIcon />}onClick={saveOpen}>
-        Yes
-      </Button>
-          </Grid>
-      </Grid> 
-        </Box>
-      </Modal>
+     
       </Grid>
         
 
