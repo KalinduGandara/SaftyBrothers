@@ -19,7 +19,16 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import SendIcon from '@mui/icons-material/Send';
 
 
 
@@ -52,6 +61,10 @@ function invoice() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [save, setSave] = React.useState(false);
+  const saveOpen = () => setSave(true);
+  const saveClose = () => setSave(false);
 
   return (
     
@@ -170,10 +183,115 @@ function invoice() {
         <FormHelperText>select payment method</FormHelperText>
       </FormControl>
         </Grid>
+        <Grid item xs={12}>
+        <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 700 }} aria-label="spanning table">
+        <TableHead>
+          <TableRow>
+            <TableCell bgcolor={'#75C2F6'}><b>Item Code</b></TableCell>
+            <TableCell align="right" bgcolor={'#75C2F6'}><b>Item Name</b></TableCell>
+            <TableCell align="right" bgcolor={'#75C2F6'}><b>Qty.</b></TableCell>
+            <TableCell align="right" bgcolor={'#75C2F6'}><b>Unit Price (Rs.)</b></TableCell>
+            <TableCell align="right" bgcolor={'#75C2F6'}><b>Discount</b></TableCell>
+            <TableCell align="right" bgcolor={'#75C2F6'}><b>Total (Rs.)</b></TableCell>
+            <TableCell align="right" bgcolor={'#75C2F6'}></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+         
+            <TableRow >
+            <TableCell>GS109</TableCell>
+          
+              <TableCell align="right">Glows</TableCell>
+              <TableCell align="right"><Input defaultValue="0"/></TableCell>
+              <TableCell align="right"><Input defaultValue="500"/></TableCell>
+              <TableCell align="right"><Input defaultValue="0"/></TableCell>
+              <TableCell align="right">5000</TableCell>
+              <TableCell align="right">  <IconButton aria-label="delete">
+        <DeleteIcon />
+      </IconButton></TableCell>
+            </TableRow>
+            <TableRow >
+            <TableCell>GS110</TableCell>
+          
+              <TableCell align="right">Jacket</TableCell>
+              <TableCell align="right"><Input defaultValue="0"/></TableCell>
+              <TableCell align="right"><Input defaultValue="1000"/></TableCell>
+              <TableCell align="right"><Input defaultValue="0"/></TableCell>
+              <TableCell align="right">50000</TableCell>
+              <TableCell align="right">  <IconButton aria-label="delete">
+        <DeleteIcon />
+      </IconButton></TableCell>
+            </TableRow>
+         
+          <TableRow>
+            <TableCell rowSpan={3} />
+            <TableCell rowSpan={3} />
+            <TableCell rowSpan={3} />
+            <TableCell rowSpan={3} />
+            
+            <TableCell colSpan={1}><b>Subtotal</b></TableCell>
+            <TableCell align="right">55000</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell colSpan={1}><b>Discount</b></TableCell>
+            <TableCell align="right"><Input defaultValue="0"/></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell colSpan={1}><b>Total</b></TableCell>
+            <TableCell align="right">55000</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
+        </Grid>
 
+        <Grid item xs={8}></Grid>
+        <Grid item xs={2}><Button variant="contained" color='error' size="medium">
+          Cancel
+        </Button></Grid>
+        <Grid item xs={2}> 
+        <Button variant="contained" endIcon={<SendIcon />}onClick={saveOpen}>
+        Save
+      </Button> 
+      <Modal
+        open={save}
+        onClose={saveClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+            <Typography id="modal-modal-title" variant="h6" component="h2"  textAlign={'center'}>
+            Are You Sure
+          </Typography>
+            </Grid>
+                          
+          <Grid item xs={12}> </Grid>
+            <Grid item xs={12}> </Grid>
+            <Grid item xs={3}> </Grid>
+            <Grid item xs={3} alignItems={'center'}>
+            <Button variant="contained" color='error' size="medium">
+          No
+        </Button>
+            </Grid>
+          <Grid item xs={6} alignItems={'center'}>
+          <Button variant="contained" endIcon={<SendIcon />}onClick={saveOpen}>
+        Yes
+      </Button>
+          </Grid>
+      </Grid> 
+        </Box>
+      </Modal>
+      </Grid>
         
 
+
+
+
           </Grid>
+          
     
     
   
