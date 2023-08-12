@@ -12,10 +12,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import Link from 'next/link';
 
-const pages = ['Home','Stock', 'Quotation', 'Invoice','Customer Details'];
+const pages = [{ name: 'Home', link: '/' }, { name: 'Stock', link: "/stock" }, { name: 'Quotation', link: "/quotation" }, { name: 'Invoice', link: "/invoice" }, { name: 'Customer Details', link: "/customerdetails" }];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function NavBar() {
@@ -60,8 +58,8 @@ function NavBar() {
             SafetyBrothers
           </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-          
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -70,11 +68,11 @@ function NavBar() {
               onClick={handleOpenNavMenu}
               color="inherit"
 
-              
+
             >
-              <MenuIcon  />
+              <MenuIcon />
             </IconButton>
-           
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -94,13 +92,13 @@ function NavBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} >
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu} >
+                  <Typography sx={{ textDecoration: 'none' }} href={page.link} component="a" textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             variant="h5"
             noWrap
@@ -117,17 +115,18 @@ function NavBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Safty Brothers
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
                 onClick={handleCloseNavMenu}
+                href={page.link}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-               
+
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>

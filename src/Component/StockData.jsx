@@ -20,32 +20,39 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import Link from 'next/link';
-
+import Button from '@mui/material/Button';
+import ItemModal from './ItemModal';
 
 function createData(Itemcode, itemname, qty) {
   return {
     Itemcode,
     itemname,
-    qty,
-    // carbs,
-    // protein,
+    qty
   };
 }
-
-const rows = [
-  createData(<Link href="/itemModal" style={{textDecoration:'none'}}>GS109</Link>,'Glows',25),
-  createData(<Link href="/ItemModal" style={{textDecoration:'none'}}>LP052</Link>, 'Safety Shoe ',452, 25.0,),
-  createData('Eclair', 262, 16.0),
-  createData('Frozen yoghurt', 159, 6.0),
-  createData('Gingerbread', 356, 16),
-  createData('Honeycomb', 408, 3.2),
-  createData('Ice cream sandwich', 237,25),
-  createData('Jelly Bean', 375, 0.0),
-  createData('KitKat', 518, 26.0),
-  createData('Lollipop', 392, 0.2),
-  createData('Marshmallow', 318, 30),
- 
-];
+function ItemRow({ item }) {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  return (
+    <div>
+      <Button onClick={handleOpen}>{item.code}</Button>
+      <ItemModal
+        open={open}
+        onClose={handleClose}
+        item={item}
+      >
+      </ItemModal>
+    </div>
+  );
+}
+const items = [{ code: "GS123", name: "Golws", description: "test", qty: 25 },
+{ code: "QW13", name: "sdfsdf", description: "dfghdfh", qty: 50 }]
+const rows = [];
+for (let i = 0; i < items.length; i++) {
+  const item = items[i];
+  rows.push(createData(<ItemRow item={item}></ItemRow>, item.name, item.qty))
+}
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -63,10 +70,6 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -97,19 +100,7 @@ const headCells = [
     numeric: true,
     disablePadding: false,
     label: <b>QTY</b>,
-  },
-  // {
-  //   id: 'carbs',
-  //   numeric: true,
-  //   disablePadding: false,
-  //   label: '',
-  // },
-  // {
-  //   id: 'protein',
-  //   numeric: true,
-  //   disablePadding: false,
-  //   label: 'Protein (g)',
-  // },
+  }
 ];
 
 function EnhancedTableHead(props) {
@@ -120,7 +111,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-     
+
 
     <TableHead>
       <TableRow>
@@ -133,20 +124,20 @@ function EnhancedTableHead(props) {
             inputProps={{
               'aria-label': 'select all desserts',
             }}
-            />
+          />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
-          key={headCell.id }
-          align={headCell.numeric ? 'left' : 'left'}
-          padding={headCell.disablePadding ? 'none' : 'normal'}
-          sortDirection={orderBy === headCell.id ? order : false}
+            key={headCell.id}
+            align={headCell.numeric ? 'left' : 'left'}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
+            sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
-              >
+            >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
@@ -201,7 +192,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
           align='center'
-                  >
+        >
           STOCKS
         </Typography>
       )}
@@ -299,7 +290,7 @@ export default function StockData() {
   );
 
   return (
-   
+
 
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
@@ -317,7 +308,7 @@ export default function StockData() {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
-              />
+            />
             <TableBody>
               {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(row.Itemcode);
@@ -353,15 +344,15 @@ export default function StockData() {
                     </TableCell>
                     <TableCell align="left">{row.itemname}</TableCell>
                     <TableCell align="left">{row.qty}</TableCell>
-                   
+
                   </TableRow>
                 );
               })}
               {emptyRows > 0 && (
                 <TableRow
-                style={{
-                  height: (dense ? 33 : 53) * emptyRows,
-                }}
+                  style={{
+                    height: (dense ? 33 : 53) * emptyRows,
+                  }}
                 >
                   <TableCell colSpan={6} />
                 </TableRow>
@@ -377,10 +368,10 @@ export default function StockData() {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+        />
       </Paper>
-      
+
     </Box>
-         
+
   );
 }
