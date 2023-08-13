@@ -74,7 +74,8 @@ function invoice() {
         
        <Grid item xs={12}></Grid>
       <Grid item xs={12} textAlign={'center'} fontWeight={'bold'} fontSize={'40px'}><Box bgcolor={'#75C2F6'}>PURCHASE ORDER</Box></Grid>
-     
+      
+        
         <Grid item xs={2}>
       <Autocomplete
       sx={{ width: 200 }}
@@ -144,6 +145,7 @@ function invoice() {
                               <AddIcon />
                               </Fab>
           </Grid>
+       
           <Grid item xs={2} >
         <TextField id="outlined-basic" label="PO Number" variant="outlined" />
         </Grid>
@@ -166,10 +168,12 @@ function invoice() {
       <DatePicker />
     </LocalizationProvider>
         </Grid>
-        <Grid item xs={6} ></Grid>
+        <Grid item xs={2} ><Button variant="contained" size="large"  href="/invoicereport">Invoice Report</Button></Grid>
+        <Grid item xs={2} ></Grid>
+        <Grid item xs={2} ></Grid>
         
         <Grid item xs={2}>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <FormControl sx={{ m: 1, minWidth: 200 }}>
         <InputLabel id="demo-simple-select-helper-label">Payment Method</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
@@ -185,7 +189,7 @@ function invoice() {
           <MenuItem value={20}>CHEQUE</MenuItem>
           <MenuItem value={30}>ONLINE PAYMENT</MenuItem>
         </Select>
-        <FormHelperText>select payment method</FormHelperText>
+       
       </FormControl>
         </Grid>
         <Grid item xs={4}>
