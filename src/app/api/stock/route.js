@@ -10,7 +10,7 @@ export const GET = async (request) => {
 
         return new NextResponse(JSON.stringify(items), { status: 200 });
     } catch (err) {
-        return new NextResponse("Database Error", { status: 500 });
+        return new NextResponse(JSON.stringify({ message: "Database Error" }), { status: 500 });
     }
 };
 
@@ -24,8 +24,8 @@ export const POST = async (request) => {
 
         await newItem.save();
 
-        return new NextResponse("Item has been created", { status: 201 });
+        return new NextResponse(JSON.stringify({ message: "Item has been created" }), { status: 201 });
     } catch (err) {
-        return new NextResponse("Database Error", { status: 500 });
+        return new NextResponse(JSON.stringify({ message: "Database Error" }), { status: 500 });
     }
 };

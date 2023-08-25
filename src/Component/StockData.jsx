@@ -36,7 +36,7 @@ function ItemRow({ item }) {
   const handleClose = () => setOpen(false);
   return (
     <div>
-      <Button onClick={handleOpen}>{item.code}</Button>
+      <Button onClick={handleOpen}>{item.item_code}</Button>
       <ItemModal
         open={open}
         onClose={handleClose}
@@ -45,13 +45,6 @@ function ItemRow({ item }) {
       </ItemModal>
     </div>
   );
-}
-const items = [{ code: "GS123", name: "Golws", description: "test", qty: 25 },
-{ code: "QW13", name: "sdfsdf", description: "dfghdfh", qty: 50 }]
-const rows = [];
-for (let i = 0; i < items.length; i++) {
-  const item = items[i];
-  rows.push(createData(<ItemRow item={item}></ItemRow>, item.name, item.qty))
 }
 
 function descendingComparator(a, b, orderBy) {
@@ -225,7 +218,21 @@ export default function StockData() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rows, setRows] = React.useState([]);
 
+  async function getData() {
+    const response = await fetch("/api/stock");
+    const data = await response.json();
+    const items = [];
+    for (let i = 0; i < data.length; i++) {
+      const item = data[i];
+      items.push(createData(<ItemRow item={item}></ItemRow>, item.name, item.qty))
+    }
+    setRows(items);
+  }
+  React.useEffect(() => {
+    getData()
+  }, [])
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -321,7 +328,7 @@ export default function StockData() {
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={row.Itemcode}
+                    key={index}
                     selected={isItemSelected}
                     sx={{ cursor: 'pointer' }}
                   >

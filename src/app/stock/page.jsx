@@ -37,7 +37,7 @@ const style = {
 
 
 export default function stock() {
- 
+
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -46,203 +46,226 @@ export default function stock() {
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   function onIsSizeClicked(e) {
     setIsSize(e.target.checked)
-}
-const handleSizeChange = (index, event) => {
+  }
+  const handleSizeChange = (index, event) => {
     const newSizes = [...sizes];
     newSizes[index].size = event.target.value;
     setSizes(newSizes);
-};
+  };
 
-const handleQuantityChange = (index, event) => {
+  const handleQuantityChange = (index, event) => {
     const newSizes = [...sizes];
     newSizes[index].quantity = event.target.value;
     setSizes(newSizes);
-};
+  };
 
-const handleAddSize = () => {
+  const handleAddSize = () => {
     setSizes([...sizes, { size: '', quantity: '' }]);
-};
+  };
 
-const handleRemoveSize = (index) => {
+  const handleRemoveSize = (index) => {
     const newSizes = [...sizes];
     newSizes.splice(index, 1);
     setSizes(newSizes);
-};
+  };
 
-const [isSize, setIsSize] = useState(false);
-const [sizes, setSizes] = useState([{ 'size': '', 'quantity': '' }]);
+  const [isSize, setIsSize] = useState(false);
+  const [sizes, setSizes] = useState([{ 'size': '', 'quantity': '' }]);
+  const [itemCode, setItemCode] = useState("");
+  const [itemName, setItemName] = useState("");
+  const [description, setDescription] = useState("");
 
 
+  async function submitForm() {
+    const data = { item_code: itemCode, name: itemName, description }
+    const JSONdata = JSON.stringify(data)
+    const endpoint = '/api/stock'
+    const options = {
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSONdata,
+    }
+
+    // Send the form data to our forms API on Vercel and get a response.
+    const response = await fetch(endpoint, options)
+
+    // Get the response data from server as JSON.
+    // If server returns the name submitted, that means the form works.
+    const result = await response.json()
+    console.log(result);
+    alert(`Is this your full name: ${result.data}`)
+
+  }
   return (
     <div className={styles.row}>
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={3}>
-      <Grid item xs={12} textAlign={'center'} fontWeight={'bold'} fontSize={'40px'}><Box bgcolor={'#75C2F6'}>STOCKS</Box></Grid>
-        <Grid xs>
-        <Autocomplete
-        id="Enter Item Code"
-        freeSolo
-        options={ITemlist.map((option) => option.title)}
-        renderInput={(params) => <TextField {...params} label="Enter Item Code" />}
-      />
-        </Grid>
-        <Grid xs>
-        <Autocomplete
-        id="free-solo-demo"
-        freeSolo
-        options={ITemlist.map((option) => option.name)}
-        renderInput={(params) => <TextField {...params} label="Enter Item Name" />}
-      />
-        </Grid>
-        <Grid xs>
-        <Button variant="outlined">Search</Button>
-        </Grid>
-        <Grid xs>
-   <React.Fragment>
-            <Button onClick={handleOpen} variant="contained" href="#contained-buttons"> ADD ITEM</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
-
-
-
-            {/* Stock Child Modal */}
-        <Box sx={{ ...style, width:1300 , heigh: 1000}}>
-
-
-        <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid xs={6}>
-        <h2 id="child-modal-title">ADD ITEMS</h2>
-        </Grid>
-        <Grid xs={6}>
-        
-        </Grid>
-        <Grid xs={6}>
-        <div className={styles.chilmodaladd}>
-      
-      <TextField id="outlined-basic" label="Item Code" variant="outlined" />
-      </div>
-        
-        <div className={styles.chilmodaladd}>
-      <TextField id="outlined-basic" label="Item Name" variant="outlined" />
-      </div>
-     
-        
-      <div className={styles.chilmodaladd}>
-      <Textarea
-      placeholder="Discription"
-      minRows={2}
-      sx={{
-        '--Textarea-focusedInset': 'var(--any, )',
-        '--Textarea-focusedThickness': '0.25rem',
-        '--Textarea-focusedHighlight': 'rgba(13,110,253,.25)',
-        '&::before': {
-          transition: 'box-shadow .15s ease-in-out',
-        },
-        '&:focus-within': {
-          borderColor: '#86b7fe',
-        },
-      }}
-    />
-    </div>
-         
-        </Grid>
-        <Grid xs={6}>
-        <>
-        
-            <FormControlLabel control={<Checkbox/>} name='size'  label="Size" onClick={onIsSizeClicked} />
-            {isSize ?
-                <div>
-                    {sizes.map((size, index) => (
-                        <div key={index}>
-                            
-                            <TextField id="outlined-basic" label="Enter Size" variant="outlined" value={size.size} onChange={(event) => handleSizeChange(index, event)} className={styles.sizeselection} size="small"/>
-                            
-                            <TextField id="quantity" label="Enter QTY" variant="outlined" value={size.quantity} onChange={(event) => handleQuantityChange(index, event)}className={styles.sizeselection} size="small"/>
-
-                            <IconButton aria-label="delete" size="large" onClick={() => handleRemoveSize(index)}>
-                             <DeleteIcon fontSize="inherit" />
-                            </IconButton>
-                            <Fab size="small" color="secondary" aria-label="add" onClick={handleAddSize}  >
-                              <AddIcon />
-                              </Fab>
-                        </div>
-                    ))}
-                    
-                    
-                </div> : null
-            }
-        </>
-        
-        
-        
-        <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={6} columns={24}>
-      
-
-        <Grid xs={8}>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={3}>
+          <Grid item="true" xs={12} textAlign={'center'} fontWeight={'bold'} fontSize={'40px'}><Box bgcolor={'#75C2F6'}>STOCKS</Box></Grid>
+          <Grid xs>
+            <Autocomplete
+              id="Enter Item Code"
+              freeSolo
+              options={ITemlist.map((option) => option.title)}
+              renderInput={(params) => <TextField {...params} label="Enter Item Code" />}
+            />
           </Grid>
-        
-        <Grid xs={8}>
+          <Grid xs>
+            <Autocomplete
+              id="free-solo-demo"
+              freeSolo
+              options={ITemlist.map((option) => option.name)}
+              renderInput={(params) => <TextField {...params} label="Enter Item Name" />}
+            />
+          </Grid>
+          <Grid xs>
+            <Button variant="outlined">Search</Button>
+          </Grid>
+          <Grid xs>
+            <React.Fragment>
+              <Button onClick={handleOpen} variant="contained" href="#contained-buttons"> ADD ITEM</Button>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="child-modal-title"
+                aria-describedby="child-modal-description"
+              >
+
+
+
+                {/* Stock Child Modal */}
+                <Box sx={{ ...style, width: 1300, heigh: 1000 }}>
+
+
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={2}>
+                      <Grid xs={6}>
+                        <h2 id="child-modal-title">ADD ITEMS</h2>
+                      </Grid>
+                      <Grid xs={6}>
+
+                      </Grid>
+                      <Grid xs={6}>
+                        <div className={styles.chilmodaladd}>
+
+                          <TextField id="outlined-basic" label="Item Code" variant="outlined" onChange={(e) => { setItemCode(e.target.value) }} />
+                        </div>
+
+                        <div className={styles.chilmodaladd}>
+                          <TextField id="outlined-basic" label="Item Name" variant="outlined" onChange={(e) => { setItemName(e.target.value) }} />
+                        </div>
+
+
+                        <div className={styles.chilmodaladd}>
+                          <Textarea
+                            onChange={(e) => { setDescription(e.target.value) }}
+                            placeholder="Discription"
+                            minRows={2}
+                            sx={{
+                              '--Textarea-focusedInset': 'var(--any, )',
+                              '--Textarea-focusedThickness': '0.25rem',
+                              '--Textarea-focusedHighlight': 'rgba(13,110,253,.25)',
+                              '&::before': {
+                                transition: 'box-shadow .15s ease-in-out',
+                              },
+                              '&:focus-within': {
+                                borderColor: '#86b7fe',
+                              },
+                            }}
+                          />
+                        </div>
+
+                      </Grid>
+                      <Grid xs={6}>
+                        <>
+
+                          <FormControlLabel control={<Checkbox />} name='size' label="Size" onClick={onIsSizeClicked} />
+                          {isSize ?
+                            <div>
+                              {sizes.map((size, index) => (
+                                <div key={index}>
+
+                                  <TextField id="outlined-basic" label="Enter Size" variant="outlined" value={size.size} onChange={(event) => handleSizeChange(index, event)} className={styles.sizeselection} size="small" />
+
+                                  <TextField id="quantity" label="Enter QTY" variant="outlined" value={size.quantity} onChange={(event) => handleQuantityChange(index, event)} className={styles.sizeselection} size="small" />
+
+                                  <IconButton aria-label="delete" size="large" onClick={() => handleRemoveSize(index)}>
+                                    <DeleteIcon fontSize="inherit" />
+                                  </IconButton>
+                                  <Fab size="small" color="secondary" aria-label="add" onClick={handleAddSize}  >
+                                    <AddIcon />
+                                  </Fab>
+                                </div>
+                              ))}
+
+
+                            </div> : null
+                          }
+                        </>
+
+
+
+                        <Box sx={{ flexGrow: 1 }}>
+                          <Grid container spacing={6} columns={24}>
+
+
+                            <Grid xs={8}>
+                            </Grid>
+
+                            <Grid xs={8}>
+                            </Grid>
+                            <Grid xs={8}>
+                            </Grid>
+                            <Grid xs={8}>
+                              <>
+                                <input type="file" name="image" id="image" />
+                              </>
+                            </Grid>
+
+                            <Grid xs={8}>
+                              <Button variant="contained" onClick={() => { submitForm() }}>
+                                Save
+                              </Button>
+                            </Grid>
+                          </Grid>
+                        </Box>
+
+                      </Grid>
+
+                    </Grid>
+                  </Box>
+
+
+                </Box>
+              </Modal>
+            </React.Fragment>
+
+
+
+          </Grid>
         </Grid>
-        <Grid xs={8}>       
-        </Grid>
-        <Grid xs={8}>
-        <>
-          <input type="file" name="image" id="image"/>
-        </>
-        </Grid>
-        
-        <Grid xs ={8}>
-        <Button variant="contained" >
-        Save
-      </Button>
-      </Grid>
-      </Grid>
-    </Box>
-
-
-
-
-
-        </Grid>
-        
-      </Grid>
-    </Box>
-
-
-        </Box>
-      </Modal>
-    </React.Fragment>
-        
-  
-
-        </Grid>
-      </Grid>
-    </Box>
-    <div>
-      <StockData/>
+      </Box>
+      <div>
+        <StockData />
+      </div>
     </div>
-  </div>
 
-  
-  
+
+
   )
 
 
 
 
-  
-  }
-  const ITemlist = [
-    { title: 'gs109', name: 'Glows' },
-    { title: 'gs110', name: 'Helmet' },
-    
-  ];
+
+}
+const ITemlist = [
+  { title: 'gs109', name: 'Glows' },
+  { title: 'gs110', name: 'Helmet' },
+
+];

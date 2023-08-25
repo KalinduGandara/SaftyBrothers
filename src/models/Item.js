@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const itemSchema = new mongoose.Schema({
-  item_id: {
+  item_code: {
     type: mongoose.Schema.Types.String,
     required: [true, "Item Id is required"],
     unique: true,
