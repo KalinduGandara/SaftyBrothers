@@ -4,6 +4,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -27,12 +31,32 @@ export default function ItemModal({ open, onClose, item }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {item.name}
+         
+
+          <Card sx={style}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="300"
+          image="/images/GS109.jpg"
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+          <b>{item.name}</b>
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {item.description}
+          <Typography variant="body2" color="text.secondary">
+          {item.description}
           </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+
+
+
+
+
+
         </Box>
       </Modal>
     </div>

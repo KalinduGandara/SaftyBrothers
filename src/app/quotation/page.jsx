@@ -24,6 +24,10 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import SendIcon from '@mui/icons-material/Send';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea } from '@mui/material';
 
 
 
@@ -120,12 +124,30 @@ function quatation() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          {/* <Typography id="modal-modal-title" variant="h6" component="h2">
             GS109
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Glows
+          </Typography> */}
+          <Card sx={style}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="300"
+          image="/images/GS109.jpg"
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+          <b>GS109</b>
           </Typography>
+          <Typography variant="body2" color="text.secondary">
+          Glows
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
         </Box>
       </Modal>
     </div>
