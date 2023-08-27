@@ -11,7 +11,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Textarea from '@mui/joy/Textarea';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import SendIcon from '@mui/icons-material/Send';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
