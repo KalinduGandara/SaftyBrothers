@@ -18,6 +18,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import StockData from '@/Component/StockData';
 
 
+
 const style = {
   position: 'absolute',
   top: '50%',
