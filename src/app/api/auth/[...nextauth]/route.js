@@ -5,6 +5,7 @@ import connect from "@/utils/db";
 import bcrypt from "bcryptjs";
 
 const handler = NextAuth({
+  secret: process.env.SECRET,
   providers: [
     CredentialsProvider({
       id: "credentials",
