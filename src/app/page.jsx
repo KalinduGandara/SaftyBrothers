@@ -5,8 +5,14 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Link from "next/link";
 import styles from './page.module.css'
 import { Box } from "@mui/material";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export default function Home() {
+export default function Home(props) {
+  const session = useSession();
+  const router = useRouter();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3} minHeight={160}>

@@ -16,7 +16,8 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import StockData from '@/Component/StockData';
-
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const style = {
   position: 'absolute',
@@ -36,8 +37,8 @@ const style = {
 
 
 export default function stock() {
-
-
+  const session = useSession();
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);

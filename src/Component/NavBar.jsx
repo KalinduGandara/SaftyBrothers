@@ -12,13 +12,17 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from 'react';
 const pages = [{ name: 'Home', link: '/' }, { name: 'Stock', link: "/stock" }, { name: 'Quotation', link: "/quotation" }, { name: 'Invoice', link: "/invoice" }, { name: 'Customer Details', link: "/customerdetails" }];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Account', 'Dashboard'];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const session = useSession();
+  const router = useRouter();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -34,7 +38,14 @@ function NavBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  //TODO
+  if (session.status === "loading") {
+    return <p>Loading...</p>;
+  }
+  if (session.status === "unauthenticated") {
+    router?.push("/login");
+    return null;
+  }
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -158,6 +169,11 @@ function NavBar() {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
+              {session.status === "authenticated" && (
+                <MenuItem onClick={signOut}>
+                  <Typography textAlign="center">Log Out</Typography>
+                </MenuItem>
+              )}
             </Menu>
           </Box>
         </Toolbar>
