@@ -1,5 +1,5 @@
 import path from 'path';
-import { writeFile } from 'fs/promises'
+import { put } from '@vercel/blob';
 import { NextRequest, NextResponse } from "next/server";
 import { NewStock, Stock, NewStockSchema, StockSchema } from "./schema";
 import { prisma } from "@/prisma/client";
@@ -37,13 +37,12 @@ export async function POST(request: NextRequest) {
 
     let imageID = '';
     if (data.image) {
-        const bytes = await data.image.arrayBuffer();
-        const buffer = Buffer.from(bytes);
         const ext = path.extname(data.image.name);
         const fileName = `${Date.now()}-${Math.floor(Math.random() * 100000)}${ext}`;
-        const publicPath = path.join(__dirname, '..', '..', '..', '..', '..', 'public', 'stock_images', fileName);
-        await writeFile(publicPath, buffer);
-        imageID = fileName;
+        const blob = await put(fileName, data.image, {
+            access: 'public',
+        });
+        imageID = blob.url;
     }
 
     let newStock = await prisma.stock.create({

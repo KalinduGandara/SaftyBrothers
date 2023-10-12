@@ -10,6 +10,7 @@ interface Props {
 
 function StockTable({ stocks, onStockDelete, onStockSelect }: Props) {
     // TODO: Add sorting
+    console.log(stocks);
 
     const handleDeleteStock = (stock: Stock) => {
         onStockDelete(stock)
@@ -44,7 +45,7 @@ function StockTable({ stocks, onStockDelete, onStockSelect }: Props) {
                                         <div className="avatar">
                                             <div className="mask mask-squircle w-12 h-12">
                                                 {stock.imageID ? (
-                                                    <Image width="100" height="100" src={`/stock_images/${stock.imageID}`} alt="Avatar Tailwind CSS Component" />
+                                                    <Image width="100" height="100" src={stock.imageID} alt="Avatar Tailwind CSS Component" />
                                                 ) : <Image width="100" height="100" src="/next.svg" alt="Avatar Tailwind CSS Component" />}
                                             </div>
                                         </div>
