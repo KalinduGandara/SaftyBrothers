@@ -7,15 +7,15 @@ function SearchStock() {
 <form >
                 <div>
                     <div className="flex flex-row px-3 pt-10">
-                        <div className='w-4/12 space-x-3'>
+                        <div className='w-3/12 space-x-3'>
                             {/* <label className="label" htmlFor="itemCode"><span className="label-text">Item Code</span> </label> */}
                             <input placeholder="Enter Item Code" className="input input-bordered input-primary w-full max-w-xs " type="text" id='itemCode' name='itemCode' />
                         </div>
-                        <div className='w-4/12 '>
+                        <div className='w-3/12 space-x-3'>
                             {/* <label className="label" htmlFor="itemName"><span className="label-text">Item Name</span> </label> */}
                             <input placeholder="Enter Item Code" className="input input-bordered input-primary w-full max-w-xs " type="text" id='itemName' name='itemName' />
                         </div>
-                        <div className='w-4/12 '>
+                        <div className='w-3/12 space-x-3 '>
                             <button className='w-100 btn btn-primary'>Search</button>
                         </div>
                     </div>
