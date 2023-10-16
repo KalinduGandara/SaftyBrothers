@@ -23,12 +23,12 @@ function StockTable({ stocks, onStockDelete, onStockSelect }: Props) {
                         <tr>
                             <th>
                                 <label>
-                                    <input type="checkbox" className="checkbox" />
+                                    <input type="checkbox" className="checkbox checkbox-info" />
                                 </label>
                             </th>
-                            <th>Item Code</th>
-                            <th>Item Name</th>
-                            <th>Quantity</th>
+                            <th className='text-xl'>Item Code</th>
+                            <th className='text-xl'>Item Name</th>
+                            <th className='text-xl'>Quantity</th>
 
                         </tr>
                     </thead>

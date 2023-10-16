@@ -49,15 +49,30 @@ function StockPage() {
   }
   return (
     <>
-      <h1 className='text-3xl'>Stocks</h1>
+      {/* <h1 className='text-3xl'>Stocks</h1>
       <div className='join'>
         <div className='join-item'>
           <SearchStock />
         </div>
-        <div className='join-item pt-9'>
+        <div className='join-item pt-9'> */}
           {/* <button className="btn btn-primary mt-5">Add Stock</button> */}
           {/* <AddStockCollapse onSubmit={onSubmit} /> */}
-          <button className="btn" onClick={() => { setAddStockModalOpen(true) }}>Add Stock</button>
+          {/* <button className="btn" onClick={() => { setAddStockModalOpen(true) }}>Add Stock</button>
+          <AddStockModal onClose={() => { setAddStockModalOpen(false) }} isOpen={isAddStockModalOpen} onSubmit={onSubmit} />
+        </div>
+      </div>
+      <StockTable onStockDelete={onDelete} onStockSelect={() => { }} stocks={stocks} /> */}
+      <div className=' flex felx-row px-full pt-5' >
+     <div className='bg-primary text-center text-4xl top-10 font-black text-white w-full rounded w-12/12'>STOCKS</div>
+         </div>
+      <div className='flex flex-row px-3'>
+        <div className='w-10/12 px-3'>
+          <SearchStock />
+        </div>
+        <div className='w-2/12 pt-8'>
+          {/* <button className="btn btn-primary mt-5">Add Stock</button> */}
+          {/* <AddStockCollapse onSubmit={onSubmit} /> */}
+          <button className="btn btn-accent " onClick={() => { setAddStockModalOpen(true) }}>Add Stock</button>
           <AddStockModal onClose={() => { setAddStockModalOpen(false) }} isOpen={isAddStockModalOpen} onSubmit={onSubmit} />
         </div>
       </div>
