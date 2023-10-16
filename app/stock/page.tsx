@@ -65,8 +65,8 @@ function StockPage() {
       <div className=' flex felx-row px-full pt-5' >
      <div className='bg-primary text-center text-4xl top-10 font-black text-white w-full rounded w-12/12'>STOCKS</div>
          </div>
-      <div className='flex flex-row  px-3'>
-        <div className='w-3/4 '>
+      <div className='flex flex-row gap-3 px-3'>
+        <div className='w-3/4  '>
           <SearchStock />
         </div>
         <div className='w-1/4 pt-8'>
