@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
     const body = await request.formData();
-    console.log(body);
+
     const data: NewStock = {
         image: body.get("image") as File,
         itemCode: body.get("itemCode") as string,
