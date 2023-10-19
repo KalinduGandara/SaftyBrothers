@@ -25,7 +25,7 @@ export default function Home() {
 
 </div>
 </Link>
-<Link href = '/customerdetails'>
+<Link href = '/customer'>
 <div className='mx-3' >
 <img className="h-250 w-400 object-center rounded-3xl shadow-2xl" src="/images/custom.jpg" />
 <h1 className="text-center pt-4  font-black text-2xl">Customer Details</h1>
