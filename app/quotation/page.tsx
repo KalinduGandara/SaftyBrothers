@@ -57,7 +57,7 @@ function QuotationPage() {
            <div  className='w-3/12 space-y-3'>
            <input type="text" placeholder="Company Name" className="input input-bordered input-primary w-full max-w-xs" />
            <input type="text" placeholder="Customer Name" className="input input-bordered input-primary w-full max-w-xs" />
-           
+           <input type="text" placeholder="Date Picker" className="input input-bordered input-primary w-full max-w-xs" />
            </div>
            
 
