@@ -4,10 +4,10 @@ export default function Home() {
   return (
     <main>
       <div className = "flex flex-row h-screen justify-center items-center" >
-
+ 
 <Link href = '/stock'>
   <div className='mx-3' >
-  <img className=" h-250 w-250 object-center rounded-3xl shadow-2xl" src="/images/stocksicon.jpg" />
+  <img className=" h-250 w-250 object-center rounded-3xl shadow-2xl tablet:640px laptop:1024px desktop:1280px" src="/images/stocksicon.jpg" />
     <h1 className="text-center pt-4  font-black text-2xl">Stock</h1>
   </div>
   </Link>

@@ -1,4 +1,5 @@
 import React from 'react'
+import CustomerDetailsTable from '../Components/CustomerDetailsTable'
 
 function customer() {
   return (
@@ -9,16 +10,17 @@ function customer() {
 
 
         <div className=" flex flex-row pt-5 px-3">
-        <div className='w-3/12 space-x-3'><input type="text" placeholder="Company Name" className="input input-bordered input-primary w-full max-w-xs " />
+        <div className='w-3/12 space-x-3'><input type="text" placeholder="Company Name" className="input input-sm input-bordered input-primary w-full max-w-xs " />
             </div>
        <div  className='w-3/12'>
-       <input type="text" placeholder="Customer Name" className="input input-bordered input-primary w-full max-w-xs" />
+       <input type="text" placeholder="Customer Name" className="input input-bordered input-sm input-primary w-full max-w-xs" />
        </div>
        <div  className='w-1/12'>
-       <button className='w-100 btn btn-primary'>Search</button>
+       <button className='w-100 btn btn-sm btn-primary'>Search</button>
        </div>
        <div  className='pl-24 w-5/12'>
-         TEST</div>
+       <button className="btn btn-accent ">Add Customer Details</button>
+         </div>
       
        
        
@@ -26,6 +28,9 @@ function customer() {
 
       
 
+       </div>
+       <div className='flex flex-row pt-5 px-3'>
+        <div className='w-full'><CustomerDetailsTable/></div>
        </div>
              </>
   )
