@@ -59,10 +59,10 @@ function AddStockModal({ onSubmit, isOpen, onClose }: Props) {
                                 </div>
                                 <div className='join join-item pt-9'>
                                     <button className='w-100 btn btn-sm  btn-primary mr-9'>Add Stock</button>
-                                    <button onClick={() => { resetForm() }} className='w-100 btn btn-error'>Reset</button>
-                                    <button onClick={() => {
+                                    <button onClick={() => { resetForm() }} className='w-100 btn btn-sm btn-error'>Reset</button>
+                                    {/* <button onClick={() => {
                                         console.log(errors);
-                                    }} className='w-100 btn btn-sm  btn-error'>Error</button>
+                                    }} className='w-100 btn btn-sm  btn-error'>Error</button> */}
 
                                 </div>
                             </div>
