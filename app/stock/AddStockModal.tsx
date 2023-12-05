@@ -31,7 +31,7 @@ function AddStockModal({ onSubmit, isOpen, onClose }: Props) {
             <Modal isOpen={isOpen} onClose={onClose} title='Add New Stock' >
                 <form onSubmit={handleSubmit(data => {
                     onSubmit(data);
-                    // resetForm()
+                    resetForm();
                 })}>
                     <div>
                         <div className='join'>

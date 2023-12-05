@@ -47,7 +47,7 @@ function Modal({ children, title, isOpen, onClose }: Props) {
         <>
 
             <dialog onKeyDown={handleKeyDown} ref={modalRef} id="my_modal_5" className="modal">
-            <div className="modal-box w-11/12 max-w-5xl">
+                <div className="modal-box w-11/12 max-w-5xl">
                     <h3 className="font-bold text-2xl">{title}</h3>
                     <div className="modal-action">
                         <button onClick={handleCloseModal} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
