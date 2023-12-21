@@ -41,7 +41,7 @@ function StockModal({ isOpen, onClose, onSubmit, stock }: Props) {
                                 <input type="hidden" {...register("id")} value={stock.id} />
                                 <div className='join-item'>
                                     <label className="label" htmlFor="itemCode"><span className="label-text">Item Code</span> </label>
-                                    <input {...register("itemCode")} className="input input-sm input-bordered input-primary w-full " type="text" id='itemCode' name='itemCode' />
+                                    <input disabled {...register("itemCode")} className="input input-sm input-bordered input-primary w-full " type="text" id='itemCode' name='itemCode' />
                                     {errors.itemCode && (<p className="text-red-500">{errors.itemCode.message}</p>)}
                                 </div>
                                 <div className='join-item'>
