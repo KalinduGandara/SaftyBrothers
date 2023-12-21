@@ -10,6 +10,12 @@ function StockPage() {
   const [stocks, setStocks] = useState<Stock[]>([])
   const [isAddStockModalOpen, setAddStockModalOpen] = useState<boolean>(false);
 
+  const refresh = () => {
+    fetch('api/stock')
+      .then(res => res.json())
+      .then(data => setStocks(data))
+      .catch(err => console.log(err))
+  }
   const onSubmit = (stock: NewStock) => {
     console.log(stock);
     const formData = new FormData();
@@ -21,21 +27,16 @@ function StockPage() {
     fetch('api/stock', {
       method: 'POST',
       body: formData
-    }).then(res => res.json())
-      .then(data => {
-        fetch('api/stock')
-          .then(res => res.json())
-          .then(data => setStocks(data))
-          .catch(err => console.log(err))
+    }).then(res => {
+      if (res.ok) {
+        refresh();
         setAddStockModalOpen(false);
-      })
+      }
+    })
       .catch(err => console.log(err))
   }
   useEffect(() => {
-    fetch('api/stock')
-      .then(res => res.json())
-      .then(data => setStocks(data))
-      .catch(err => console.log(err))
+    refresh();
   }, [])
 
   const onDelete = (stock: Stock) => {
@@ -55,16 +56,16 @@ function StockPage() {
           <SearchStock />
         </div>
         <div className='join-item pt-9'> */}
-          {/* <button className="btn btn-primary mt-5">Add Stock</button> */}
-          {/* <AddStockCollapse onSubmit={onSubmit} /> */}
-          {/* <button className="btn" onClick={() => { setAddStockModalOpen(true) }}>Add Stock</button>
+      {/* <button className="btn btn-primary mt-5">Add Stock</button> */}
+      {/* <AddStockCollapse onSubmit={onSubmit} /> */}
+      {/* <button className="btn" onClick={() => { setAddStockModalOpen(true) }}>Add Stock</button>
           <AddStockModal onClose={() => { setAddStockModalOpen(false) }} isOpen={isAddStockModalOpen} onSubmit={onSubmit} />
         </div>
       </div>
       <StockTable onStockDelete={onDelete} onStockSelect={() => { }} stocks={stocks} /> */}
       <div className=' flex felx-row px-full pt-5' >
-     <div className='bg-primary text-center text-4xl top-10 font-black text-white w-full rounded w-12/12'>STOCKS</div>
-         </div>
+        <div className='bg-primary text-center text-4xl top-10 font-black text-white w-full rounded w-12/12'>STOCKS</div>
+      </div>
       <div className='flex flex-row gap-3 px-3'>
         <div className='w-3/4  '>
           <SearchStock />
@@ -76,7 +77,7 @@ function StockPage() {
           <AddStockModal onClose={() => { setAddStockModalOpen(false) }} isOpen={isAddStockModalOpen} onSubmit={onSubmit} />
         </div>
       </div>
-      <StockTable onStockDelete={onDelete} onStockSelect={() => { }} stocks={stocks} />
+      <StockTable refresh={refresh} onStockDelete={onDelete} stocks={stocks} />
 
     </>
   )

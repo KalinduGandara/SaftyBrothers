@@ -14,7 +14,16 @@ const StockSchema = z.object({
     itemCode: z.string().min(1, { message: 'Item Code should be at least 1 characters.' }).max(50),
     itemName: z.string().min(1, { message: 'Item Name should be at least 1 characters.' }).max(50),
     imageID: z.string().optional(),
-    description: z.string().optional(),
+    image: z
+        .custom<FileList>()
+        .transform((file) => file && file.length > 0 && file.item(0))
+        .refine((file) => !file || (!!file && file.size <= 1 * 1024 * 1024), {
+            message: "The profile picture must be a maximum of 10MB.",
+        })
+        .refine((file) => !file || (!!file && file.type?.startsWith("image")), {
+            message: "Only images are allowed to be sent.",
+        }),
+    description: z.string().nullable().optional(),
     sizes: z.array(SizeSchema).min(1)
 });
 const NewStockSchema = z.object({
