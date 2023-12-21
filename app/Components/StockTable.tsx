@@ -6,11 +6,15 @@ import StockModal from '../stock/StockModal';
 interface Props {
     stocks: Stock[],
     onStockDelete: (stock: Stock) => void,
-    refresh: () => void
+    refresh: () => void,
+    filter: string
 }
 
-function StockTable({ stocks, onStockDelete, refresh }: Props) {
+function StockTable({ stocks, onStockDelete, refresh, filter }: Props) {
     // TODO: Add sorting
+    if (filter) {
+        stocks = stocks.filter(stock => stock.itemName.toLowerCase().includes(filter.toLowerCase()) || stock.itemCode.toLowerCase().includes(filter.toLowerCase()))
+    }
     const deleteModels: boolean[] = Array(stocks.length).fill(false);
     const stockModels: boolean[] = Array(stocks.length).fill(false);
 

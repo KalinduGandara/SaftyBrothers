@@ -1,60 +1,19 @@
 import React from 'react'
 
-function SearchStock() {
+interface Props {
+    setSearch: (search: string) => void
+}
+function SearchStock({ setSearch }: Props) {
     return (
         <>
+            <div>
+                <div className="flex flex-row px-3 gap-3 pt-8">
+                    <div className='w-1/4 '>
+                        <input onChange={(e) => { setSearch(e.target.value) }} placeholder="Enter Search" className="input input-bordered input-primary input-sm md:xs xl:xl w-full max-w-xs " type="text" id='itemName' name='itemName' />
+                    </div>
+                </div>
+            </div>
 
-<form >
-                <div>
-                    <div className="flex flex-row px-3 gap-3 pt-8">
-                        <div className='w-1/4'>
-                            {/* <label className="label" htmlFor="itemCode"><span className="label-text">Item Code</span> </label> */}
-                            <input placeholder="Enter Item Code" className="input input-bordered input-primary input-sm w-full max-w-xs " type="text" id='itemCode' name='itemCode' />
-                        </div>
-                        <div className='w-1/4 '>
-                            {/* <label className="label" htmlFor="itemName"><span className="label-text">Item Name</span> </label> */}
-                            <input placeholder="Enter Item Code" className="input input-bordered input-primary input-sm md:xs xl:xl w-full max-w-xs " type="text" id='itemName' name='itemName' />
-                        </div>
-                        <div className='w-1/4 '>
-                            <button className='w-100 btn btn-primary btn-sm btn-md:w-32 btn-lg:w-48'>Search</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            {/* <form >
-                <div>
-                    <div className="join">
-                        <div className='join-item mx-3'>
-                            <label className="label" htmlFor="itemCode"><span className="label-text">Item Code</span> </label>
-                            <input className="input input-bordered input-primary w-full max-w-xs" type="text" id='itemCode' name='itemCode' />
-                        </div>
-                        <div className='join-item mx-3'>
-                            <label className="label" htmlFor="itemName"><span className="label-text">Item Name</span> </label>
-                            <input className="input input-bordered input-primary w-full max-w-xs" type="text" id='itemName' name='itemName' />
-                        </div>
-                        <div className='join-item mx-3 pt-9'>
-                            <button className='w-100 btn btn-primary'>Search</button>
-                        </div>
-                    </div>
-                </div>
-            </form> */}
-            {/* <form >
-                <div>
-                    <div className="flex flex-wrap -mx-3 mb-2">
-                        <div className='w-full md:w-2/5 px-3 mb-6 md:mb-0'>
-                            <label className="label" htmlFor="itemCode"><span className="label-text">Item Code</span> </label>
-                            <input className="input input-bordered input-primary w-full max-w-xs" type="text" id='itemCode' name='itemCode' />
-                        </div>
-                        <div className='w-full md:w-2/5 px-3 mb-6 md:mb-0'>
-                            <label className="label" htmlFor="itemName"><span className="label-text">Item Name</span> </label>
-                            <input className="input input-bordered input-primary w-full max-w-xs" type="text" id='itemName' name='itemName' />
-                        </div>
-                        <div className='w-full md:w-1/5 px-3 mb-6 md:mb-0'>
-                            <button className='w-100 btn btn-primary mt-5'>Search</button>
-                        </div>
-                    </div>
-                </div>
-            </form> */}
         </>
     )
 }
