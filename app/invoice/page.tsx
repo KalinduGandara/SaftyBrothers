@@ -1,5 +1,6 @@
-import React from 'react'
-import InvoiceandQoatTable from '../Components/InvoiceandQuoatTable';
+"use client";
+import React, { useState } from 'react'
+import InvoiceandQuoatTable from '../Components/InvoiceandQuoatTable';
 import SearchStock from '../Components/SearchStock';
 import Link from 'next/link'
 
@@ -12,7 +13,8 @@ const companydetails = [
   'Email :- brotherssafety@gmail.com'
 ];
 
-function invoice() {
+function Invoice() {
+  const [search, setSearch] = useState<string>('');
 
   return (
     <>
@@ -24,7 +26,7 @@ function invoice() {
       <div className=" flex flex-row pt-5 px-3">
         <div className='w-6/12 space-x-3'>
           {/* <input type="text" placeholder="Enter Item Name" className="input input-sm input-bordered input-primary w-full max-w-xs" /> */}
-          <SearchStock />
+          <SearchStock setSearch={setSearch} />
         </div>
         <div className='w-1/12'>
           {/* <button className='w-100 btn btn-primary'>Search</button> */}
@@ -84,11 +86,11 @@ function invoice() {
 
       </div>
       <div className='flex flex-row gap-3 px-3 pt-3'>
-        <div className='w-full px-3'><InvoiceandQoatTable /></div>
+        {/* <div className='w-full px-3'><InvoiceandQuoatTable /></div> */}
       </div>
 
     </>
   )
 }
 
-export default invoice
+export default Invoice

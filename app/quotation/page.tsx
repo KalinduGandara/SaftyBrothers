@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react'
-import InvoiceandQoatTable from '../Components/InvoiceandQuoatTable';
+import InvoiceandQuoatTable from '../Components/InvoiceandQuoatTable';
 import SearchStock from '../Components/SearchStock';
 import { QuotationStock } from '../quotation/QuotationStock'
 
@@ -84,7 +84,7 @@ function QuotationPage() {
 
       </div>
       <div className='flex flex-row gap-3 px-3 pt-3'>
-        <div className='w-full px-3'><InvoiceandQoatTable onStockUpdate={onItemUpdate} onStockDelete={onItemRemove} stocks={selectedStocks} /></div>
+        <div className='w-full px-3'><InvoiceandQuoatTable onStockUpdate={onItemUpdate} onStockDelete={onItemRemove} stocks={selectedStocks} /></div>
       </div>
     </>
   )

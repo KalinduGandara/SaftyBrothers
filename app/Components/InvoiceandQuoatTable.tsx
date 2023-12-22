@@ -9,7 +9,7 @@ interface Props {
     onStockUpdate: (stock: QuotationStock) => void
 }
 
-const InvoiceandQoatTable = ({ stocks, onStockDelete, onStockUpdate }: Props) => {
+const InvoiceandQuoatTable = ({ stocks, onStockDelete, onStockUpdate }: Props) => {
     const [totalDiscount, setTotalDiscount] = useState<number>(0);
     const [subTotal, setSubTotal] = useState<number>(0);
     const [total, setTotal] = useState<number>(0);
@@ -157,4 +157,4 @@ const InvoiceandQoatTable = ({ stocks, onStockDelete, onStockUpdate }: Props) =>
     )
 }
 
-export default InvoiceandQoatTable
+export default InvoiceandQuoatTable
