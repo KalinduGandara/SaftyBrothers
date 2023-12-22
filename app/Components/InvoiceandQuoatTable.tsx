@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from 'react'
 import { NewStock, Stock } from '../stock/StockSchema'
 import { QuotationStock } from '../quotation/QuotationStock'
