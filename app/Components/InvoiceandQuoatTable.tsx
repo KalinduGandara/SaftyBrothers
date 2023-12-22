@@ -1,7 +1,11 @@
 "use client";
 import React, { useEffect, useState } from 'react'
-import { NewStock, Stock } from '../stock/StockSchema'
 import { QuotationStock } from '../quotation/QuotationStock'
+
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 
 interface Props {
     stocks: QuotationStock[],
@@ -46,6 +50,28 @@ const InvoiceandQuoatTable = ({ stocks, onStockDelete, onStockUpdate }: Props) =
         }
         onStockUpdate(stock);
         calculateTotal();
+    }
+
+    function generatePDF() {
+        const selectedStocks = stocks;
+
+        const documentDefinition = {
+            content: [
+                { text: 'Invoice' },
+                {
+                    table: {
+                        widths: ['*', '*', '*', '*'],
+                        body: [
+                            ['Stock Code', 'Stock Name', 'Quantity', 'Price'],
+                            ...selectedStocks.map(stock => [stock.itemCode, stock.itemName, stock.quantity, stock.total]),
+                            ['', '', 'Total', total]
+                        ]
+                    }
+                }
+            ]
+        };
+
+        pdfMake.createPdf(documentDefinition).download('invoice.pdf');
     }
     return (
         <div className="overflow-x-auto">
@@ -149,10 +175,9 @@ const InvoiceandQuoatTable = ({ stocks, onStockDelete, onStockUpdate }: Props) =
                         </td>
 
                     </tr>
-
-
                 </tbody>
             </table>
+            <button onClick={() => generatePDF()}>Download Invoice</button>
         </div>
     )
 }

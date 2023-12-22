@@ -21,6 +21,7 @@
     "fast-sort": "^3.4.0",
     "next": "^13.5.4",
     "next-cloudinary": "^4.22.0",
+    "pdfmake": "^0.2.8",
     "postcss": "8.4.30",
     "prisma": "^5.3.1",
     "react": "18.2.0",
@@ -31,6 +32,7 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
+    "@types/pdfmake": "^0.2.8",
     "daisyui": "^3.8.1"
   }
 }
