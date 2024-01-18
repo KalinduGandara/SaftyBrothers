@@ -1,23 +1,18 @@
 "use client";
 import React, { useEffect, useState } from 'react'
-import InvoiceandQuoatTable from '../Components/InvoiceandQuoatTable';
+import QuoatTable from '../Components/QuoatTable';
 import SearchStock from '../Components/SearchStock';
 import { QuotationStock } from '../quotation/QuotationStock'
+import { QuotationCustomer } from '../customer/Customer';
 
-
-const companydetails = [
-  'SAFETY BROTHERS HODLDINGS',
-  'No - 259/41 Bandaranayakapura',
-  'Hot Line :- +94760120290',
-  'Telephone :- +94 0760120291',
-  'Email :- brotherssafety@gmail.com'
-];
+import companydetails from '../Constans/company';
 
 function QuotationPage() {
   const [stocks, setStocks] = useState<QuotationStock[]>([]);
   const [search, setSearch] = useState<string>('');
   const [selectedStocks, setSelectedStocks] = useState<QuotationStock[]>([]);
 
+  const [customer, setCustomer] = useState<QuotationCustomer>({ companyName: '', address: '', phone: '', customerName: '', date: '', quotationNumber: '' });
   useEffect(() => {
     fetch('api/stock')
       .then(res => res.json())
@@ -71,20 +66,20 @@ function QuotationPage() {
           </tbody>
         </table>
         <div className='w-3/12 space-y-3'>
-          <input type="text" placeholder="Quoatation Number" className="input input-borderd input-sm input-primary w-full max-w-xs" />
-          <input type="text" placeholder="Telephone Number" className="input input-borderd input-sm input-primary w-full max-w-xs" />
-          <input type="text" placeholder="Company Address" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.quotationNumber} onChange={(e) => { setCustomer({ ...customer, quotationNumber: e.target.value }) }} type="text" placeholder="Quoatation Number" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.phone} onChange={(e) => { setCustomer({ ...customer, phone: e.target.value }) }} type="text" placeholder="Telephone Number" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.address} onChange={(e) => { setCustomer({ ...customer, address: e.target.value }) }} type="text" placeholder="Company Address" className="input input-borderd input-sm input-primary w-full max-w-xs" />
         </div>
         <div className='w-3/12 space-y-3'>
-          <input type="text" placeholder="Company Name" className="input input-borderd input-sm input-primary w-full max-w-xs" />
-          <input type="text" placeholder="Customer Name" className="input input-borderd input-sm input-primary w-full max-w-xs" />
-          <input type="date" placeholder="Date Picker" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.companyName} onChange={(e) => { setCustomer({ ...customer, companyName: e.target.value }) }} type="text" placeholder="Company Name" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.customerName} onChange={(e) => { setCustomer({ ...customer, customerName: e.target.value }) }} type="text" placeholder="Customer Name" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.date} onChange={(e) => { setCustomer({ ...customer, date: e.target.value }) }} type="date" placeholder="Date Picker" className="input input-borderd input-sm input-primary w-full max-w-xs" />
         </div>
 
 
       </div>
       <div className='flex flex-row gap-3 px-3 pt-3'>
-        <div className='w-full px-3'><InvoiceandQuoatTable onStockUpdate={onItemUpdate} onStockDelete={onItemRemove} stocks={selectedStocks} /></div>
+        <div className='w-full px-3'><QuoatTable customer={customer} onStockUpdate={onItemUpdate} onStockDelete={onItemRemove} stocks={selectedStocks} /></div>
       </div>
     </>
   )

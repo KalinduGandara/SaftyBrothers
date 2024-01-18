@@ -1,81 +1,92 @@
 "use client";
-import React, { useState } from 'react'
-import InvoiceandQuoatTable from '../Components/InvoiceandQuoatTable';
+import React, { useEffect, useState } from 'react'
+import InvoiceTable from '../Components/InvoiceTable';
 import SearchStock from '../Components/SearchStock';
 import Link from 'next/link'
+import companydetails from '../Constans/company';
+import { QuotationStock } from '../quotation/QuotationStock';
+import { InvoiceCustomer } from '../customer/Customer';
 
-
-const companydetails = [
-  'SAFETY BROTHERS HODLDINGS',
-  'No - 259/41 Bandaranayakapura',
-  'Hot Line :- +94760120290',
-  'Telephone :- +94 0760120291',
-  'Email :- brotherssafety@gmail.com'
-];
 
 function Invoice() {
+  const [stocks, setStocks] = useState<QuotationStock[]>([]);
   const [search, setSearch] = useState<string>('');
+  const [selectedStocks, setSelectedStocks] = useState<QuotationStock[]>([]);
 
+  const [customer, setCustomer] = useState<InvoiceCustomer>({ companyName: '', address: '', phone: '', customerName: '', date: '', invoiceNumber: '', paymentMethod: '', email: '' });
+  useEffect(() => {
+    fetch('api/stock')
+      .then(res => res.json())
+      .then(data => setStocks(data))
+      .catch(err => console.log(err))
+  }, [])
+
+  const onItemAdd = (stock: QuotationStock) => {
+    setSelectedStocks([...selectedStocks, { ...stock, index: selectedStocks.length + 1, discount: 0, quantity: 0, unitPrice: 0 }]);
+  }
+  const onItemRemove = (stock: QuotationStock) => {
+    setSelectedStocks([...selectedStocks.filter(s => s.index !== stock.index)]);
+  }
+  const onItemUpdate = (stock: QuotationStock) => {
+    setSelectedStocks(selectedStocks.map(s => s.index === stock.index ? stock : s));
+  }
   return (
     <>
       <div className=' pt-5 ' >
         <div className='bg-primary text-center text-4xl top-10 font-black w-full rounded '>PURCHACE ORDER</div>
       </div>
-
-
       <div className=" flex flex-row pt-5 px-3">
         <div className='w-6/12 space-x-3'>
-          {/* <input type="text" placeholder="Enter Item Name" className="input input-sm input-bordered input-primary w-full max-w-xs" /> */}
           <SearchStock setSearch={setSearch} />
-        </div>
-        <div className='w-1/12'>
-          {/* <button className='w-100 btn btn-primary'>Search</button> */}
         </div>
         <div className='pl-24 w-5/12'>
           {companydetails.map((detail, index) => (
-
             <li className='font-black' key={index}>{detail}</li>
-
           ))}</div>
-
-
-
       </div>
       <div className='flex flex-row gap-3 px-3 pt-3'>
-        <div className=' w-3/12'>
-          <button className="btn glass btn-sm  btn-primary bg-black">Glows<button ><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg></button></button>
-        </div>
-        <div className=' w-3/12'>
-          <button className='btn btn-circle  btn-md'>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#86198f" className="w-22">
-              <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z" clipRule="evenodd" />
-            </svg>
-
-          </button>
-        </div>
+        <table className="table w-6/12">
+          <thead>
+            <tr>
+              <th className='text-xl'>Item Code</th>
+              <th className='text-xl'>Item Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* limit to five items */}
+            {stocks.filter(stock => stock.itemName.toLowerCase().includes(search.toLowerCase()) || stock.itemCode.toLowerCase().includes(search.toLowerCase())).slice(0, 5).map((stock, index) => (
+              <tr key={index}>
+                <td>{stock.itemCode}</td>
+                <td>{stock.itemName}</td>
+                <td>
+                  <button onClick={() => { onItemAdd(stock) }} className="btn btn-primary btn-sm">Add</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <div className='w-3/12 space-y-3'>
-          <input type="text" placeholder="PO Number" className="input input-bordered input-sm input-primary w-full max-w-xs" />
-          <input type="text" placeholder="Customer Name" className="input input-bordered input-sm input-primary w-full max-w-xs" />
-          <input type="text" placeholder="Customer Email" className="input input-bordered input-sm input-primary w-full max-w-xs" />
+          <input value={customer.invoiceNumber} onChange={(e) => { setCustomer({ ...customer, invoiceNumber: e.target.value }) }} type="text" placeholder="PO Number" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.customerName} onChange={(e) => { setCustomer({ ...customer, customerName: e.target.value }) }} type="text" placeholder="Customer Name" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.email} onChange={(e) => { setCustomer({ ...customer, email: e.target.value }) }} type="text" placeholder="Customer Name" className="input input-borderd input-sm input-primary w-full max-w-xs" />
 
-          <select className="select select-primary  select-sm w-full max-w-xs">
+          <select value={customer.paymentMethod} onChange={(e) => { setCustomer({ ...customer, paymentMethod: e.target.value }) }} className="select select-primary  select-sm w-full max-w-xs">
             <option disabled selected>Payment Method</option>
-            <option>Cash</option>
-            <option>Cheque</option>
-            <option>Online</option>
-            <option>Credit</option>
+            <option value="Cash">Cash</option>
+            <option value="Cheque">Cheque</option>
+            <option value="Online">Online</option>
+            <option value="Credit">Credit</option>
           </select>
         </div>
         <div className='w-3/12 space-y-3'>
-          <input type="text" placeholder="Company Name" className="input input-bordered input-sm input-primary w-full max-w-xs" />
-          <input type="text" placeholder="Telephone Number" className="input input-bordered input-sm  input-primary w-full max-w-xs" />
-          <input type="text" placeholder="Customer Address" className="input input-bordered input-sm input-primary w-full max-w-xs" />
+          <input value={customer.companyName} onChange={(e) => { setCustomer({ ...customer, companyName: e.target.value }) }} type="text" placeholder="Company Name" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.phone} onChange={(e) => { setCustomer({ ...customer, phone: e.target.value }) }} type="text" placeholder="Telephone Number" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.address} onChange={(e) => { setCustomer({ ...customer, address: e.target.value }) }} type="text" placeholder="Company Address" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.date} onChange={(e) => { setCustomer({ ...customer, date: e.target.value }) }} type="date" placeholder="Date Picker" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+
           <button className="btn btn-accent">Save Customer Details</button>
         </div>
-
-
-
-
       </div>
       <div className='flex flex-row gap-3 px-3 pt-3'>
         <div className='w-3/12 space-y-3'>
@@ -86,7 +97,7 @@ function Invoice() {
 
       </div>
       <div className='flex flex-row gap-3 px-3 pt-3'>
-        {/* <div className='w-full px-3'><InvoiceandQuoatTable /></div> */}
+        <div className='w-full px-3'><InvoiceTable customer={customer} onStockUpdate={onItemUpdate} onStockDelete={onItemRemove} stocks={selectedStocks} /></div>
       </div>
 
     </>

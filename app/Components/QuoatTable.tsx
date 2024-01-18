@@ -4,16 +4,19 @@ import { QuotationStock } from '../quotation/QuotationStock'
 
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { QuotationCustomer } from '../customer/Customer';
+import companydetails from '../Constans/company';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 interface Props {
     stocks: QuotationStock[],
+    customer: QuotationCustomer,
     onStockDelete: (stock: QuotationStock) => void,
     onStockUpdate: (stock: QuotationStock) => void
 }
 
-const InvoiceandQuoatTable = ({ stocks, onStockDelete, onStockUpdate }: Props) => {
+const QuoatTable = ({ stocks, onStockDelete, onStockUpdate, customer }: Props) => {
     const [totalDiscount, setTotalDiscount] = useState<number>(0);
     const [subTotal, setSubTotal] = useState<number>(0);
     const [total, setTotal] = useState<number>(0);
@@ -30,6 +33,7 @@ const InvoiceandQuoatTable = ({ stocks, onStockDelete, onStockUpdate }: Props) =
     }
     useEffect(() => {
         calculateTotal();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [stocks, totalDiscount])
 
     const calculateStockTotal = (stock: QuotationStock, attr: string, value: number) => {
@@ -57,21 +61,91 @@ const InvoiceandQuoatTable = ({ stocks, onStockDelete, onStockUpdate }: Props) =
 
         const documentDefinition = {
             content: [
-                { text: 'Invoice' },
+                // Header section
+                {
+                    text: 'Quotation',
+                    style: 'header', // Define a header style for visual hierarchy
+                },
+
+                // Company details section with improved formatting
+                {
+                    table: {
+                        widths: ['*', '*'], // Adjust column widths
+                        body: [
+                            ['Company Name', companydetails[0]],
+                            ['Company Address', companydetails[1]],
+                            ['Phone Number', companydetails[2]],
+                            ['Email Address', companydetails[4]],
+                        ],
+                        layout: 'noBorders', // Remove table borders for a cleaner look
+                    },
+                },
+
+                // Invoice section with clear labels and formatting
+                {
+                    text: 'Invoice Details',
+                    style: 'subheader', // Define a subheader style for organization
+                },
                 {
                     table: {
                         widths: ['*', '*', '*', '*'],
                         body: [
-                            ['Stock Code', 'Stock Name', 'Quantity', 'Price'],
+                            ['Item Code', 'Item Name', 'Quantity', 'Price'],
                             ...selectedStocks.map(stock => [stock.itemCode, stock.itemName, stock.quantity, stock.total]),
-                            ['', '', 'Total', total]
-                        ]
-                    }
-                }
-            ]
-        };
+                            ['', '', 'Total', total],
+                        ],
+                        styles: {
+                            // Apply styles for visual clarity
+                            header: {
+                                bold: true,
+                                fontSize: 10,
+                            },
+                            body: {
+                                fontSize: 9,
+                            },
+                        },
+                    },
+                },
 
-        pdfMake.createPdf(documentDefinition).download('invoice.pdf');
+                // Customer details section with labels
+                {
+                    text: 'Customer Details',
+                    style: 'subheader',
+                },
+                {
+                    table: {
+                        widths: ['*', '*', '*', '*'],
+                        body: [
+                            ['Customer Name', customer.customerName],
+                            ['Address', customer.address],
+                            ['Phone Number', customer.phone],
+                            ['Quotation Number', customer.quotationNumber],
+                        ],
+                        layout: 'noBorders',
+                    },
+                },
+
+                // Additional sections for professionalism
+                // {
+                //     text: 'Terms and Conditions',
+                //     style: 'subheader',
+                // },
+                // {
+                //     text: 'Your acceptance of this quotation signifies your agreement to our standard terms and conditions, available upon request.',
+                // },
+                {
+                    text: 'Thank you for your business!',
+                    style: 'footer', // Define a footer style for closing
+                },
+            ],
+            // defaultStyle: {
+            //     // Set default font for better readability
+            //     font: 'Helvetica',
+            // },
+        };
+        console.log(documentDefinition);
+
+        pdfMake.createPdf(documentDefinition).download('quotation.pdf');
     }
     return (
         <div className="overflow-x-auto">
@@ -182,4 +256,4 @@ const InvoiceandQuoatTable = ({ stocks, onStockDelete, onStockUpdate }: Props) =
     )
 }
 
-export default InvoiceandQuoatTable
+export default QuoatTable
