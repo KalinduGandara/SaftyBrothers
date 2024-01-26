@@ -31,3 +31,14 @@ model Size {
 
   @@unique([stockId, size])
 }
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String   @db.VarChar(255)
+  company   String   @db.VarChar(255)
+  address   String   @db.VarChar(255)
+  phone     String   @db.VarChar(255)
+  email     String   @unique @db.VarChar(255)
+}

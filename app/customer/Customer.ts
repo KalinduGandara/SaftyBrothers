@@ -5,6 +5,9 @@ export interface QuotationCustomer {
     date: string;
     phone: string;
     quotationNumber: string;
+    paymentMethod: string;
+    email: string;
+    validDate: string;
 }
 export interface InvoiceCustomer {
     companyName: string;

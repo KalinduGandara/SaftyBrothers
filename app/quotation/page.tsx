@@ -12,7 +12,7 @@ function QuotationPage() {
   const [search, setSearch] = useState<string>('');
   const [selectedStocks, setSelectedStocks] = useState<QuotationStock[]>([]);
 
-  const [customer, setCustomer] = useState<QuotationCustomer>({ companyName: '', address: '', phone: '', customerName: '', date: '', quotationNumber: '' });
+  const [customer, setCustomer] = useState<QuotationCustomer>({ companyName: '', address: '', phone: '', customerName: '', date: '', quotationNumber: '', email: '', paymentMethod: '', validDate: '' });
   useEffect(() => {
     fetch('api/stock')
       .then(res => res.json())
@@ -69,11 +69,20 @@ function QuotationPage() {
           <input value={customer.quotationNumber} onChange={(e) => { setCustomer({ ...customer, quotationNumber: e.target.value }) }} type="text" placeholder="Quoatation Number" className="input input-borderd input-sm input-primary w-full max-w-xs" />
           <input value={customer.phone} onChange={(e) => { setCustomer({ ...customer, phone: e.target.value }) }} type="text" placeholder="Telephone Number" className="input input-borderd input-sm input-primary w-full max-w-xs" />
           <input value={customer.address} onChange={(e) => { setCustomer({ ...customer, address: e.target.value }) }} type="text" placeholder="Company Address" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.email} onChange={(e) => { setCustomer({ ...customer, email: e.target.value }) }} type="text" placeholder="Company Email" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <select value={customer.paymentMethod} onChange={(e) => { setCustomer({ ...customer, paymentMethod: e.target.value }) }} className="select select-primary  select-sm w-full max-w-xs">
+            <option disabled selected>Payment Method</option>
+            <option value="Cash">Cash</option>
+            <option value="Cheque">Cheque</option>
+            <option value="Online">Online</option>
+            <option value="Credit">Credit</option>
+          </select>
         </div>
         <div className='w-3/12 space-y-3'>
           <input value={customer.companyName} onChange={(e) => { setCustomer({ ...customer, companyName: e.target.value }) }} type="text" placeholder="Company Name" className="input input-borderd input-sm input-primary w-full max-w-xs" />
           <input value={customer.customerName} onChange={(e) => { setCustomer({ ...customer, customerName: e.target.value }) }} type="text" placeholder="Customer Name" className="input input-borderd input-sm input-primary w-full max-w-xs" />
-          <input value={customer.date} onChange={(e) => { setCustomer({ ...customer, date: e.target.value }) }} type="date" placeholder="Date Picker" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.date} onChange={(e) => { setCustomer({ ...customer, date: e.target.value }) }} type="date" placeholder="Date" className="input input-borderd input-sm input-primary w-full max-w-xs" />
+          <input value={customer.validDate} onChange={(e) => { setCustomer({ ...customer, validDate: e.target.value }) }} type="number" placeholder="Valid days" className="input input-borderd input-sm input-primary w-full max-w-xs" />
         </div>
 
 

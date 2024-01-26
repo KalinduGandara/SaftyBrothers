@@ -59,89 +59,99 @@ const QuoatTable = ({ stocks, onStockDelete, onStockUpdate, customer }: Props) =
     function generatePDF() {
         const selectedStocks = stocks;
 
+        const images = selectedStocks.map(stock => ({ [stock.itemCode]: stock.imageID || 'logo' }));
+
         const documentDefinition = {
             content: [
-                // Header section
                 {
-                    text: 'Quotation',
-                    style: 'header', // Define a header style for visual hierarchy
-                },
-
-                // Company details section with improved formatting
-                {
-                    table: {
-                        widths: ['*', '*'], // Adjust column widths
-                        body: [
-                            ['Company Name', companydetails[0]],
-                            ['Company Address', companydetails[1]],
-                            ['Phone Number', companydetails[2]],
-                            ['Email Address', companydetails[4]],
-                        ],
-                        layout: 'noBorders', // Remove table borders for a cleaner look
-                    },
-                },
-
-                // Invoice section with clear labels and formatting
-                {
-                    text: 'Invoice Details',
-                    style: 'subheader', // Define a subheader style for organization
-                },
-                {
-                    table: {
-                        widths: ['*', '*', '*', '*'],
-                        body: [
-                            ['Item Code', 'Item Name', 'Quantity', 'Price'],
-                            ...selectedStocks.map(stock => [stock.itemCode, stock.itemName, stock.quantity, stock.total]),
-                            ['', '', 'Total', total],
-                        ],
-                        styles: {
-                            // Apply styles for visual clarity
-                            header: {
-                                bold: true,
-                                fontSize: 10,
-                            },
-                            body: {
-                                fontSize: 9,
-                            },
+                    columns: [
+                        {
+                            image: 'logo',
+                            width: 100,
+                            height: 100,
                         },
-                    },
-                },
-
-                // Customer details section with labels
-                {
-                    text: 'Customer Details',
-                    style: 'subheader',
+                        [{
+                            style: 'title',
+                            text: companydetails[0]
+                        },
+                        { text: companydetails[1] },
+                        { text: companydetails[2] },
+                        { text: companydetails[3] },
+                        { text: companydetails[4] }]
+                    ]
                 },
                 {
                     table: {
-                        widths: ['*', '*', '*', '*'],
+                        widths: ['*', '*'],
                         body: [
-                            ['Customer Name', customer.customerName],
-                            ['Address', customer.address],
-                            ['Phone Number', customer.phone],
-                            ['Quotation Number', customer.quotationNumber],
-                        ],
-                        layout: 'noBorders',
-                    },
-                },
+                            [[{
+                                text: 'Submitted To',
+                                style: 'header',
+                            },
+                            {
+                                table: {
+                                    widths: ['*', '*'],
+                                    body: [
+                                        ['Company Name', customer.companyName],
+                                        ['Attention', customer.customerName],
+                                        ['Address', customer.address],
+                                    ],
+                                },
+                                layout: 'noBorders',
+                            }], [{
+                                text: 'Sales Quotation',
+                                style: 'header',
+                            },
+                            {
+                                table: {
+                                    widths: ['*', '*'],
+                                    body: [
+                                        ['Date', customer.date],
+                                        ['Quotation No', customer.quotationNumber],
+                                        ['Payment Terms', customer.paymentMethod],
+                                        ['Validity', customer.validDate],
+                                        ['Contact Number', customer.phone],
 
-                // Additional sections for professionalism
-                // {
-                //     text: 'Terms and Conditions',
-                //     style: 'subheader',
-                // },
-                // {
-                //     text: 'Your acceptance of this quotation signifies your agreement to our standard terms and conditions, available upon request.',
-                // },
+                                    ],
+                                },
+                                layout: 'noBorders',
+                            }]]
+                        ]
+                    }, layout: 'noBorders',
+                },
+                {
+                    table: {
+                        widths: [150, '*', 50, 50, 50],
+                        body: [
+                            ['Item Description', 'Image', 'Quantity', 'Discount', 'Price'],
+                            ...selectedStocks.map(stock => [stock.itemName, {
+                                image: stock.itemCode, width: 100,
+                                height: 100,
+                            }, stock.quantity, stock.discount, stock.total]),
+                            ['', '', 'Total', '', total],
+                        ],
+                    },
+                    // layout: 'noBorders'
+                },
                 {
                     text: 'Thank you for your business!',
-                    style: 'footer', // Define a footer style for closing
+                    style: 'footer',
                 },
             ],
-            // defaultStyle: {
-            //     // Set default font for better readability
-            //     font: 'Helvetica',
-            // },
+            styles: {
+                header: {
+                    fontSize: 12,
+                    bold: true,
+                },
+                title: {
+                    fontSize: 25,
+                    color: 'green'
+                }
+            },
+            images: {
+                logo: stocks[0].imageID || 'logo',
+                ...images.reduce((acc, image) => ({ ...acc, ...image }), {}),
+            },
         };
         console.log(documentDefinition);
 
