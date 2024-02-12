@@ -35,12 +35,12 @@ function NavBar() {
             </div> */}
 
             <div className=" navbar bg-primary -100 text-primary-content w-full rounded  ">
-                <a className="btn btn-ghost normal-case text-xl" href='/'>Safety Brother</a>
-                <a className="btn btn-ghost  navbar-center" href='/'>Home</a>
-                <a className="btn btn-ghost  navbar-center " href="/stock">Stock</a>
-                <a className="btn btn-ghost  navbar-center" href='/quotation'>Quotation</a>
-                <a className="btn btn-ghost  navbar-center" href='/invoice'>Invoice</a>
-                <a className="btn btn-ghost  navbar-center" href='/customer'>Customer Details</a>
+                <Link className="btn btn-ghost normal-case text-xl" href='/'>Safety Brother</Link>
+                <Link className="btn btn-ghost  navbar-center" href='/'>Home</Link>
+                <Link className="btn btn-ghost  navbar-center " href="/stock">Stock</Link>
+                <Link className="btn btn-ghost  navbar-center" href='/quotation'>Quotation</Link>
+                <Link className="btn btn-ghost  navbar-center" href='/invoice'>Invoice</Link>
+                <Link className="btn btn-ghost  navbar-center" href='/customer'>Customer Details</Link>
                 <div className="avatar  navbar-end">
                     <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
                         <Image src="/images/1.jpg" alt="Profile Picture" />
