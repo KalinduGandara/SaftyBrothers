@@ -43,7 +43,7 @@ function NavBar() {
                 <Link className="btn btn-ghost  navbar-center" href='/customer'>Customer Details</Link>
                 <div className="avatar  navbar-end">
                     <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
-                        <Image src="/images/1.jpg" alt="Profile Picture" />
+                        <Image width={1000} height={1000} src="/images/1.jpg" alt="Profile Picture" />
                     </div>
                 </div>
             </div>
